@@ -6,4 +6,4 @@ COPY . /app
 
 EXPOSE 8000
 
-CMD ["go", "run", "main.go"]
+CMD ["go", "run", "."]
