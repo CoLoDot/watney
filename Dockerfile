@@ -1,11 +1,9 @@
 FROM golang:latest
 
-RUN mkdir /app
-
-ADD . /app
-
 WORKDIR /app
 
-RUN go build -o main .
+COPY . /app
 
-CMD ["/app/main"]
+EXPOSE 8000
+
+CMD ["go", "run", "main.go"]

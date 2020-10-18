@@ -23,7 +23,7 @@ func getEnvVariable(key string) string {
 }
 
 func fetchInSightWeather() string {
-	apiKey := getEnvVariable("API_KEY")
+	apiKey := os.Getenv("API_KEY")
 
 	resp, err := http.Get("https://api.nasa.gov/insight_weather/?api_key=" + apiKey + "&feedtype=json&ver=1.0")
 	if err != nil {
@@ -77,5 +77,5 @@ func main() {
 	api := r.PathPrefix("/api/v1").Subrouter()
 	api.HandleFunc("", get).Methods(http.MethodGet)
 	api.HandleFunc("", notFound)
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), r))
 }
