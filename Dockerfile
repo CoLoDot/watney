@@ -6,4 +6,6 @@ COPY . /app
 
 EXPOSE 8000
 
-CMD ["go", "run", "."]
+RUN cd api
+
+CMD ["go", "run", "main.go"]

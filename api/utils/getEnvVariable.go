@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"log"
@@ -7,7 +7,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func getEnvVariable(key string) string {
+// GetEnvVariable helper load variable regarding environnement type
+func GetEnvVariable(key string) string {
 	if os.Getenv("ENV") == "PRODUCTION" || os.Getenv("ENV") == "STAGING" {
 		return os.Getenv(key)
 	}
