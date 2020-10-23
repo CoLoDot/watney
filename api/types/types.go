@@ -1,4 +1,4 @@
-package main
+package types
 
 // Apod : Astronomy Picture Of the Day response struct required fields
 type Apod struct {
