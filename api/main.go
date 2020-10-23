@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	log.Println("Watney is running...")
 	r := mux.NewRouter()
 
 	marsweather := r.PathPrefix("/api/marsweather").Subrouter()
