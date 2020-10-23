@@ -45,3 +45,27 @@ func fetchInSightWeather() string {
 
 	return fmt.Sprintf(`{"sol": "%s", "avTemp": %f, "maxTemp": %f, "minTemp": %f, "firstUTC": "%s", "lastUTC": "%s", "season": "%s"}`, solkey, solDataATav, solDataATmx, solDataATmn, solDataFirstUTC, solDataLastUTC, solDataSeason)
 }
+
+func fetchAPOD() string {
+	apiKey := getEnvVariable("API_KEY")
+
+	resp, err := http.Get("https://api.nasa.gov/planetary/apod?api_key=" + apiKey)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var apodData Apod
+	errBody := json.Unmarshal(body, &apodData)
+	if errBody != nil {
+		panic(errBody)
+	}
+
+	return fmt.Sprintf(`{ "title": "%s", "url": "%s", "description": "%s"}`, apodData.Title, apodData.Hdurl, apodData.Explanation)
+}
