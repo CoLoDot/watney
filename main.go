@@ -9,8 +9,14 @@ import (
 
 func main() {
 	r := mux.NewRouter()
-	api := r.PathPrefix("/api/v1").Subrouter()
-	api.HandleFunc("", get).Methods(http.MethodGet)
-	api.HandleFunc("", notFound)
+
+	marsweather := r.PathPrefix("/api/marsweather").Subrouter()
+	marsweather.HandleFunc("", getMarsWeather).Methods(http.MethodGet)
+	marsweather.HandleFunc("", notFound)
+
+	apod := r.PathPrefix("/api/apod").Subrouter()
+	apod.HandleFunc("", getAPOD).Methods(http.MethodGet)
+	apod.HandleFunc("", notFound)
+
 	log.Fatal(http.ListenAndServe(":"+getEnvVariable("PORT"), r))
 }
