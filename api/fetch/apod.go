@@ -4,9 +4,6 @@ import (
 	"api/types"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
 
 	"api/utils"
 )
@@ -14,21 +11,11 @@ import (
 // Apod fetches Astronomy Picture of Day NASA Api data
 func Apod() string {
 	apiKey := utils.GetEnvVariable("API_KEY")
-
-	resp, err := http.Get("https://api.nasa.gov/planetary/apod?api_key=" + apiKey)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
+	query := "https://api.nasa.gov/planetary/apod?api_key=" + apiKey
+	response := utils.GetResponse(query)
 
 	var apodData types.Apod
-	errBody := json.Unmarshal(body, &apodData)
+	errBody := json.Unmarshal(response, &apodData)
 	if errBody != nil {
 		panic(errBody)
 	}

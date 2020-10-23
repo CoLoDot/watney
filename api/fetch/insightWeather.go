@@ -4,37 +4,24 @@ import (
 	"api/utils"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
 )
 
 // InsightWeather fetches Mars InsightWeather NASA Api data
 func InsightWeather() string {
 	apiKey := utils.GetEnvVariable("API_KEY")
+	query := "https://api.nasa.gov/insight_weather/?api_key=" + apiKey + "&feedtype=json&ver=1.0"
+	response := utils.GetResponse(query)
 
-	resp, err := http.Get("https://api.nasa.gov/insight_weather/?api_key=" + apiKey + "&feedtype=json&ver=1.0")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var data map[string]interface{}
-	errBody := json.Unmarshal(body, &data)
+	var insightWeatherData map[string]interface{}
+	errBody := json.Unmarshal(response, &insightWeatherData)
 	if errBody != nil {
 		panic(errBody)
 	}
 
-	solKeysList := data["sol_keys"].([]interface{})
+	solKeysList := insightWeatherData["sol_keys"].([]interface{})
 
 	solkey := solKeysList[len(solKeysList)-1].(string)
-	solData := data[solkey].(map[string]interface{})
+	solData := insightWeatherData[solkey].(map[string]interface{})
 
 	solDataAT := solData["AT"].(map[string]interface{})
 	solDataATav := solDataAT["av"].(float64)
