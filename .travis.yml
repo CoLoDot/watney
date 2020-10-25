@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - 1.15
+
+install:
+  -  # Do nothing. This is needed to prevent default install action "go get -t -v ./..." from happening here (we want it to happen inside script step).
+script:
+  - cd api/
+  - go get github.com/gorilla/mux
+  - go get github.com/joho/godotenv
+  - go test ./...

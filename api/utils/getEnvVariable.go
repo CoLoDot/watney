@@ -9,7 +9,7 @@ import (
 
 // GetEnvVariable helper load variable regarding environnement type
 func GetEnvVariable(key string) string {
-	if os.Getenv("ENV") == "PRODUCTION" || os.Getenv("ENV") == "STAGING" {
+	if os.Getenv("ENV") != "" {
 		return os.Getenv(key)
 	}
 
