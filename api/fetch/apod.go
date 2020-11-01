@@ -9,9 +9,9 @@ import (
 )
 
 // Apod fetches Astronomy Picture of Day NASA Api data
-func Apod() string {
+func Apod(today string) string {
 	apiKey := utils.GetEnvVariable("API_KEY")
-	query := "https://api.nasa.gov/planetary/apod?api_key=" + apiKey
+	query := "https://api.nasa.gov/planetary/apod?api_key=" + apiKey + "&date=" + today
 	response := utils.GetResponse(query)
 
 	var apodData types.Apod
