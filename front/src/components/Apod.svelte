@@ -14,7 +14,7 @@
   $: apodPromise = getApodResults();
 </script>
 
-<div class="apod-results">
+<div class="apod-results" id="apod">
   {#await apodPromise}
     <span class="apod-results__await">...</span>
   {:then value}
@@ -41,7 +41,6 @@
     align-items: center;
     max-width: 500px;
     width: 100%;
-    max-height: 500px;
     overflow: scroll;
     margin: 10px;
   }

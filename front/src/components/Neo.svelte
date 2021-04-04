@@ -14,7 +14,7 @@
   $: neoPromise = getNeoResults();
 </script>
 
-<div class="neo-results">
+<div class="neo-results" id="neo">
   {#await neoPromise}
     <span class="neo-results__await">...</span>
   {:then value}
@@ -41,7 +41,6 @@
     padding: 50px;
     max-width: 500px;
     width: 100%;
-    max-height: 500px;
     overflow: scroll;
     margin: 10px;
   }
